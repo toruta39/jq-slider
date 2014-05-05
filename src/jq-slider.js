@@ -75,7 +75,7 @@
       LMBReleaseCount = 0;
       unbindDragging();
 
-      slider.container.trigger('slider.release');
+      slider.trigger('jq-slider.release');
     }
 
     function onPointerDown (e) {
@@ -87,7 +87,7 @@
 
       updateContainerOffset();
 
-      slider.container.trigger('slider.grab');
+      slider.trigger('jq-slider.grab');
 
       if (!options.isTouchDevice) {
         startClientX = e.clientX;
@@ -111,7 +111,7 @@
 
       updateSliderPos();
 
-      slider.container.trigger('slider.change', data);
+      slider.trigger('jq-slider.change', data);
 
       sliderOffset = slider.scrubber.offset();
 
@@ -164,7 +164,7 @@
 
       updateSliderPos();
 
-      slider.container.trigger('slider.change', data);
+      slider.trigger('jq-slider.change', data);
     }
 
     function updateContainerOffset () {
