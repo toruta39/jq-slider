@@ -1,0 +1,28 @@
+{
+  "name": "jq-slider",
+  "title": "jQuery Slider",
+  "description": "jQuery Slider Plugin",
+  "version": "0.0.1",
+  "homepage": "https://github.com/toruta39/jq-slider.git",
+  "author": {
+    "name": "Joshua Zhang",
+    "url": "https://github.com/toruta39"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toruta39/jq-slider.git"
+  },
+  "bugs": "https://github.com/toruta39/jq-slider/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~1.11.0"
+  },
+  "keywords": [
+    "jquery-plugin"
+  ]
+}
