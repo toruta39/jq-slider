@@ -29,7 +29,7 @@
     this.left = 0;
     this.top = 0;
 
-    this.container = this.empty();
+    this.container = this;
     this.scrubber = $('<div class="scrubber"></div>').appendTo(this);
     if (options.progress) {
       this.progress = $('<div class="progress"></div>').appendTo(this);
@@ -197,8 +197,8 @@
     }
 
     // Initialization
-    if (this.css('position') === 'static') {
-      this.css({position: 'relative'});
+    if (this.container.css('position') === 'static') {
+      this.container.css({position: 'relative'});
     }
 
     this.scrubber.css({
