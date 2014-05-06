@@ -47,14 +47,23 @@
   });
 
   test('its value can be set', function() {
-    expect(4);
-    var slider = this.elem.slider();
-    slider.setValue(0.1, 0.2);
+    expect(8);
+    var slider = this.elem.slider({
+      scrubberWidth: 20,
+      scrubberHeight: 20
+    });
+    slider.setValue(1, 1);
 
-    strictEqual(slider.x, 0.1, 'value x should be set');
-    strictEqual(slider.y, 0.2, 'value y should be set');
-    ok(slider.left > 0, 'scrubber x-offset should be updated');
-    ok(slider.top > 0, 'scrubber y-offset should be updated');
+    strictEqual(slider.x, 1, 'value x should be set');
+    strictEqual(slider.y, 1, 'value y should be set');
+    strictEqual(slider.left, this.elem.width() - 20, 'scrubber x-offset should be updated');
+    strictEqual(slider.top, this.elem.height() - 20, 'scrubber y-offset should be updated');
+
+    slider.setValue(0, 0);
+    strictEqual(slider.x, 0, 'value x should be set to 0');
+    strictEqual(slider.y, 0, 'value y should be set to 0');
+    strictEqual(slider.left, 0, 'scrubber x-offset should be updated to 0');
+    strictEqual(slider.top, 0, 'scrubber y-offset should be updated to 0');
   });
 
 }(jQuery));
