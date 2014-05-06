@@ -234,6 +234,11 @@
     });
 
     this.updateSize();
+
+    if (options.initialX || options.initialY) {
+      this.setValue(options.initialX, options.initialY);
+    }
+
     this.container.on($.fn.slider.options.pointerdown, onPointerDown);
 
     return this;
@@ -247,7 +252,9 @@
     pointermove: isTouchDevice ? 'touchmove' : 'mousemove',
     pointerup: isTouchDevice ? 'touchend' : 'mouseup',
     scrubberWidth: 16,
-    scrubberHeight: 16
+    scrubberHeight: 16,
+    initialX: 0,
+    initialY: 0
   };
 
 }(jQuery));

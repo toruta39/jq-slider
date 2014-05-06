@@ -69,6 +69,16 @@
     strictEqual(slider.top, 0, 'custom scrubber x-offset is correct');
   });
 
+  test('it initializes components', function() {
+    var slider = this.elem.slider({
+      initialX: 1,
+      initialY: 1
+    });
+
+    strictEqual(slider.left, slider.width() - $.fn.slider.options.scrubberWidth, 'scrubber x-offset should be set according to initialX');
+    strictEqual(slider.top, slider.height() - $.fn.slider.options.scrubberHeight, 'scrubber y-offset should be set according to initialX');
+  });
+
   module('jQuery.fn.slider#setValue', {
     setup: function() {
       this.elem = $('#qunit-fixture');
