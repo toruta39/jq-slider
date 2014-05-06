@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Slider Example</title>
+  <style>
+    .slider {
+      background-color: #000;
+    }
+    .slider .scrubber {
+      background-color: #ccc;
+    }
+    .slider .progress {
+      background-color: #e00;
+      padding-bottom: 16px;
+    }
+  </style>
 </head>
 <body>
 
@@ -11,7 +23,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
   <script src="../src/jq-slider.js"></script>
   <script>
-    $('.slider').slider();
+    var slider = $('.slider').slider({
+      progress: true
+    });
   </script>
 </body>
 </html>

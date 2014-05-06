@@ -20,7 +20,7 @@
       throws(block, [expected], [message])
   */
 
-  module('jQuery#slider', {
+  module('jQuery.fn.slider', {
     // This will run before each test in this module.
     setup: function() {
       this.elem = $('#qunit-fixture');
@@ -34,7 +34,6 @@
 
   test('it initializes components', function() {
     expect(4);
-
     var slider;
 
     slider = this.elem.slider();
@@ -44,6 +43,36 @@
 
     slider = this.elem.slider({progress: true});
     ok(slider.progress, 'has progress accroding to options');
+  });
+
+  test('its components can be set seperated', function() {
+    expect(2);
+    var someContainer = $('<div class="some-container">'),
+      someScrubber = $('<div class="some-scrubber">'),
+      someProgress = $('<div class="some-progress">'),
+      someInnerWrapper = $('<div class="some-inner-wrapper">'),
+      slider;
+
+    someContainer.append(someInnerWrapper.append(someScrubber, someProgress));
+    this.elem.append(someContainer);
+
+    someContainer.width(200).height(16);
+
+    slider = this.elem.slider({
+      container: someContainer,
+      scrubber: someScrubber,
+      progress: someProgress
+    });
+
+    slider.setValue(1, 1);
+    strictEqual(slider.left, 200 - 16, 'custom scrubber x-offset is correct');
+    strictEqual(slider.top, 0, 'custom scrubber x-offset is correct');
+  });
+
+  module('jQuery.fn.slider#setValue', {
+    setup: function() {
+      this.elem = $('#qunit-fixture');
+    }
   });
 
   test('its value can be set', function() {
@@ -64,6 +93,29 @@
     strictEqual(slider.y, 0, 'value y should be set to 0');
     strictEqual(slider.left, 0, 'scrubber x-offset should be updated to 0');
     strictEqual(slider.top, 0, 'scrubber y-offset should be updated to 0');
+  });
+
+  module('jQuery.fn.slider#setSize', {
+    setup: function() {
+      this.elem = $('#qunit-fixture');
+    }
+  });
+
+  test('its container size can be set', function() {
+    expect(4);
+    this.elem.append('<div class="some-slider">');
+    var slider = this.elem.find('.some-slider').slider();
+
+    slider.setValue(1, 1);
+    slider.setSize(200, 200);
+
+    strictEqual(slider.left, 200 - $.fn.slider.options.scrubberWidth, 'scrubber x-offset should be updated');
+    strictEqual(slider.top, 200 - $.fn.slider.options.scrubberHeight, 'scrubber y-offset should be updated');
+
+    slider.setSize(null, null);
+
+    strictEqual(slider.left, slider.width() - $.fn.slider.options.scrubberWidth, 'scrubber x-offset should be updated when null is passed as width');
+    strictEqual(slider.top, slider.height() - $.fn.slider.options.scrubberHeight, 'scrubber y-offset should be updated when null is passed as height');
   });
 
 }(jQuery));

@@ -12,8 +12,7 @@
   $.fn.slider = function (options) {
     options = $.extend({}, $.fn.slider.options, options);
 
-    var
-      startClientX, startClientY, // clientX/Y when starting dragging
+    var startClientX, startClientY, // clientX/Y when starting dragging
       startScrubberX, startScrubberY, // sliderX/Y when starting dragging
       containerX, containerY, containerWidth, containerHeight,
       maxScrubberX, maxScrubberY,
@@ -29,10 +28,22 @@
     this.left = 0;
     this.top = 0;
 
-    this.container = this;
-    this.scrubber = $('<div class="scrubber"></div>').appendTo(this);
-    if (options.progress) {
+    if (options.container instanceof $) {
+      this.container = options.container;
+    } else {
+      this.container = this;
+    }
+
+    if (options.scrubber instanceof $) {
+      this.scrubber = options.scrubber;
+    } else {
+      this.scrubber = $('<div class="scrubber"></div>').appendTo(this);
+    }
+
+    if (options.progress === true) {
       this.progress = $('<div class="progress"></div>').appendTo(this);
+    } else if (options.progress instanceof $) {
+      this.progress = options.progress;
     }
 
     // Value of x, y should be between 0 and 1
@@ -45,6 +56,22 @@
       }
 
       updateSliderPos();
+    };
+
+    this.setSize = function (width, height) {
+      if (width === null) {
+        this.container.width('auto');
+      } else {
+        this.container.width(width);
+      }
+
+      if (height === null) {
+        this.container.height('auto');
+      } else {
+        this.container.height(height);
+      }
+
+      this.updateSize();
     };
 
     this.updateSize = function () {
@@ -177,28 +204,27 @@
     }
 
     function updateSliderPos () {
-      if (maxScrubberX) {
-        slider.left = maxScrubberX * slider.x;
-        slider.scrubber.css('left', slider.x * scrubberXActualRatio * 100 + '%');
+      slider.left = maxScrubberX * slider.x;
+      slider.scrubber.css('left', slider.x * scrubberXActualRatio * 100 + '%');
 
-        if (slider.progress) {
-          slider.progress.css('width', slider.x * scrubberXActualRatio * 100 + '%');
-        }
+      if (slider.progress) {
+        slider.progress.css('width', slider.x * scrubberXActualRatio * 100 + '%');
       }
 
-      if (maxScrubberY) {
-        slider.top = maxScrubberY * slider.y;
-        slider.scrubber.css('top', slider.y * scrubberYActualRatio * 100 + '%');
+      slider.top = maxScrubberY * slider.y;
+      slider.scrubber.css('top', slider.y * scrubberYActualRatio * 100 + '%');
 
-        if (slider.progress) {
-          slider.progress.css('width', slider.y * scrubberYActualRatio * 100 + '%');
-        }
+      if (slider.progress) {
+        slider.progress.css('height', slider.y * scrubberYActualRatio * 100 + '%');
       }
     }
 
     // Initialization
     if (this.container.css('position') === 'static') {
-      this.container.css({position: 'relative'});
+      this.container.css({
+        position: 'relative',
+        minHeight: options.scrubberHeight
+      });
     }
 
     this.scrubber.css({
