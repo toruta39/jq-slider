@@ -18,7 +18,36 @@ In your web page:
 <script src="dist/jq-slider.min.js"></script>
 <script>
 jQuery(function($) {
-  $('.slider').slider();
+  $('.slider').slider(); // initialize jq-slider
+});
+</script>
+```
+
+You can also customize the slider via options:
+
+```html
+<div class="slider">
+  <div class="slider-inner">
+    <div class="scrubber"></div>
+    <div class="progress"></div>
+  </div>
+</div>
+
+<script src="jquery.js"></script>
+<script src="dist/jq-slider.min.js"></script>
+<script>
+jQuery(function($) {
+  var slider = $('.slider').slider({
+    container: $('.slider-inner'), // initialize jq-slider with a custom container element
+    scrubber: $('.scrubber'), // set a custom container element
+    progress: $('.progress'), // set a custom progress element
+    initialX: 0.5, // set the inital X value
+    initialY: 0.5, // set the initial Y value
+    scrubberWidth: 20, // set the scrubber width
+    scrubberHeight: 20 // set the scrubber height
+  });
+
+  slider.setSize(400, null); // set the container size to 400 * auto
 });
 </script>
 ```
