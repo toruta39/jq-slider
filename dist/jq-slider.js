@@ -1,4 +1,4 @@
-/*! jq-slider - v0.1.0 - 2014-05-07
+/*! jq-slider - v0.1.1 - 2014-05-08
 * https://github.com/toruta39/jq-slider
 * Copyright (c) 2014 Joshua Zhang; Licensed MIT */
 (function ($) {
