@@ -29,21 +29,21 @@
     this.top = 0;
 
     if (options.container instanceof $) {
-      this.container = options.container;
+      this.$container = options.container;
     } else {
-      this.container = this;
+      this.$container = this;
     }
 
     if (options.scrubber instanceof $) {
-      this.scrubber = options.scrubber;
+      this.$scrubber = options.scrubber;
     } else {
-      this.scrubber = $('<div class="scrubber"></div>').appendTo(this);
+      this.$scrubber = $('<div class="scrubber"></div>').appendTo(this);
     }
 
     if (options.progress === true) {
-      this.progress = $('<div class="progress"></div>').appendTo(this);
+      this.$progress = $('<div class="progress"></div>').appendTo(this);
     } else if (options.progress instanceof $) {
-      this.progress = options.progress;
+      this.$progress = options.progress;
     }
 
     // Value of x, y should be between 0 and 1
@@ -60,15 +60,15 @@
 
     this.setSize = function (width, height) {
       if (width === null) {
-        this.container.width('auto');
+        this.$container.width('auto');
       } else {
-        this.container.width(width);
+        this.$container.width(width);
       }
 
       if (height === null) {
-        this.container.height('auto');
+        this.$container.height('auto');
       } else {
-        this.container.height(height);
+        this.$container.height(height);
       }
 
       this.updateSize();
@@ -140,7 +140,7 @@
 
       slider.trigger('jq-slider.change', data);
 
-      sliderOffset = slider.scrubber.offset();
+      sliderOffset = slider.$scrubber.offset();
 
       startScrubberX = sliderOffset.left;
       startScrubberY = sliderOffset.top;
@@ -195,39 +195,39 @@
     }
 
     function updateContainerOffset () {
-      var containerOffset = slider.container.offset();
+      var containerOffset = slider.$container.offset();
 
       containerX = containerOffset.left;
       containerY = containerOffset.top;
-      containerWidth = slider.container.width();
-      containerHeight = slider.container.height();
+      containerWidth = slider.$container.width();
+      containerHeight = slider.$container.height();
     }
 
     function updateSliderPos () {
       slider.left = maxScrubberX * slider.x;
-      slider.scrubber.css('left', slider.x * scrubberXActualRatio * 100 + '%');
+      slider.$scrubber.css('left', slider.x * scrubberXActualRatio * 100 + '%');
 
-      if (slider.progress) {
-        slider.progress.css('width', slider.x * scrubberXActualRatio * 100 + '%');
+      if (slider.$progress) {
+        slider.$progress.css('width', slider.x * scrubberXActualRatio * 100 + '%');
       }
 
       slider.top = maxScrubberY * slider.y;
-      slider.scrubber.css('top', slider.y * scrubberYActualRatio * 100 + '%');
+      slider.$scrubber.css('top', slider.y * scrubberYActualRatio * 100 + '%');
 
-      if (slider.progress) {
-        slider.progress.css('height', slider.y * scrubberYActualRatio * 100 + '%');
+      if (slider.$progress) {
+        slider.$progress.css('height', slider.y * scrubberYActualRatio * 100 + '%');
       }
     }
 
     // Initialization
-    if (this.container.css('position') === 'static') {
-      this.container.css({
+    if (this.$container.css('position') === 'static') {
+      this.$container.css({
         position: 'relative',
         minHeight: options.scrubberHeight
       });
     }
 
-    this.scrubber.css({
+    this.$scrubber.css({
       width: options.scrubberWidth,
       height: options.scrubberHeight,
       position: 'absolute'
@@ -239,7 +239,7 @@
       this.setValue(options.initialX, options.initialY);
     }
 
-    this.container.on($.fn.slider.options.pointerdown, onPointerDown);
+    this.$container.on($.fn.slider.options.pointerdown, onPointerDown);
 
     return this;
   };

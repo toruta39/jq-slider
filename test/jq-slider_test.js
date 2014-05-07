@@ -37,12 +37,12 @@
     var slider;
 
     slider = this.elem.slider();
-    ok(slider.container, 'has container');
-    ok(slider.scrubber, 'has scrubber');
-    ok(!slider.progress, 'has not progress by default');
+    ok(slider.$container, 'has container');
+    ok(slider.$scrubber, 'has scrubber');
+    ok(!slider.$progress, 'has not progress by default');
 
     slider = this.elem.slider({progress: true});
-    ok(slider.progress, 'has progress accroding to options');
+    ok(slider.$progress, 'has progress accroding to options');
   });
 
   test('its components can be set seperated', function() {
